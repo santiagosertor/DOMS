@@ -140,7 +140,6 @@ const acepta = (e) => {
 
 addEventListener("DOMContentLoaded", acepta);
 politicas.addEventListener("change", acepta);
-
 formulario.addEventListener("submit", validar);
 nombre.addEventListener("keydown", letras);
 apellido.addEventListener("keydown", letras);
