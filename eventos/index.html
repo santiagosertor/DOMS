@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eventos</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <h1>Eventos</h1>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="container">
+          <div class="card">
+            <h2 class="center">Ingrese su datos de usuario</h2>
+            <form action="#" novalidate>
+              <div class="form control">
+                <input type="text" name="nombre" placeholder="Nombre" required />
+              </div>
+              <div class="form control">
+                <input type="text" name="apellido" placeholder="Apellido" required/>
+              </div>
+              <div class="form control">
+                <input type="tel" name="telefono" placeholder="Telefono" required/>
+              </div>
+              <div class="form control">
+                <input type="number" name="documento" placeholder="Documento" />
+              </div>
+              <div class="form control">
+                <input type="text" name="usuario" placeholder="Usuario" />
+              </div>
+              <div class="form control">
+                <input
+                  type="password"
+                  name="contrasena"
+                  placeholder="Contraseña"
+                />
+                <label for="politicas"></label>
+              </div>
+              <input type="checkbox" name="politicas" id="politicas" />
+              <label for="politicas">politicas</label>
+              <button type="submit" id="btn_validar">Validar</button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div id="usuarios">
+
+        </div>
+      </section>
+    </main>
+    <script src="app.js" type="mdodulos"></script>
+  </body>
+</html>
