@@ -8,19 +8,19 @@ const router = express.Router();
 // Obtener todas las ciudad
 router.get("/", ciudadController.getAllciduad);
 
-// Obtener una categoría por ID
+// Obtener una ciudad por ID
 router.get("/:id", ciudadController.getciudadid);
 
-// Crear una nueva categoría
+// Crear una nueva ciudad
 router.post("/", camposciudad, ciudadController.createciudad);
 
-// Actualizar una categoría
+// Actualizar una ciudad
 router.put("/:id", camposciudad, ciudadController.updateciudad);
 
-// Actualizar parcialmente una categoría
+// Actualizar parcialmente una ciudad
 router.patch("/:id", parcialciudad, ciudadController.updateciudad);
 
-// Eliminar una categoría
+// Eliminar una ciudad
 router.delete("/:id", ciudadController.deleteciudad);
 
 export default router;

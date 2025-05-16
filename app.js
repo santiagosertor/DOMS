@@ -5,11 +5,12 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import rutaciudad from "./rutas/rutaciudad.js";
-import categoriasRoutes from "./src/routes/categoriasRoutes.js";
-import authRoutes from "./src/routes/authRoutes.js";
-import administradorRoutes from "./src/routes/administradorRoutes.js";
+import rutalenguaje from "./rutas/rutalenguaje.js";
+// import authRoutes from "./src/routes/authRoutes.js";
+// import administradorRoutes from "./src/routes/administradorRoutes.js";
 
 dotenv.config();
+
 
 // Crear la instancia de Express
 const app = express();
@@ -24,10 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 // Permite manejar cookies en las respuestas.
 app.use(cookieParser());
 // Rutas
-app.use("/api/ciudad", rutaciudad);
-app.use("/api/lenguaje", categoriasRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/admin", administradorRoutes);
+app.use("/rutas/ciudades", rutaciudad);
+app.use("/rutas/lenguaje", rutalenguaje);
+// app.use("/rutas/auth", authRoutes);
+// app.use("/rutas/admin", administradorRoutes);
 
 // Puerto para ejecutar el servidor
 const port = process.env.PORT || 3000;

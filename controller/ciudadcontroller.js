@@ -1,12 +1,12 @@
-import Ciudadservices from "../services/servicesciudad";
-import { ResponseProvider } from "../providers/ResponseProvider";
+import servicesciudad from "../services/servicesciudad.js";
+import { ResponseProvider } from "../providers/ResponseProvider.js";
 
 class ciudadController {
   static getAllciduad = async (req, res) => {
     try {
-      // Llamamos al servicio para obtener las categorías
-      const response = await Ciudadservices.getCiudad();
-      // Validamos si no hay categorías
+      // Llamamos al servicio para obtener las ciudades
+      const response = await servicesciudad.getCiudad();
+      // Validamos si no hay ciudad
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -30,7 +30,7 @@ class ciudadController {
     const { id } = req.params;
     try {
       // Llamamos al servicio para obtener la categoría por su ID
-      const response = await Ciudadservices.getCiudadid(id);
+      const response = await servicesciudad.getCiudadid(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -53,7 +53,7 @@ class ciudadController {
   static createciudad = async (req, res) => {
     const { nombre, id } = req.body;
     try {
-      const response = await Ciudadservices.createciudad(nombre, id);
+      const response = await servicesciudad.createciudad(nombre, id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -74,12 +74,12 @@ class ciudadController {
 
   // Actualizar una categoría
   static updateciudad = async (req, res) => {
-    const { id } = req.params;
+    const { nombre } = req.params;
     // Los campos a actualizar se pasan en el cuerpo de la solicitud
     const campos = req.body;
     try {
       // Crear una instancia de la clase Categoria
-      const ciudad = await Ciudadservices.updateciudad(id, campos);
+      const ciudad = await servicesciudad.updateciudad(nombre, campos);
       // Validamos si no se pudo actualizar la categoría
       if (ciudad.error) {
         ResponseProvider.error(res, ciudad.message, ciudad.code);
@@ -97,7 +97,7 @@ class ciudadController {
     const { id } = req.params;
     try {
       // Llamamos al servicio para eliminar la categoría
-      const response = await Ciudadservices.deleteciudad(id);
+      const response = await servicesciudad.deleteciudad(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         ResponseProvider.error(res, response.message, response.code);

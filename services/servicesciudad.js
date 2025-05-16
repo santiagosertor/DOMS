@@ -1,4 +1,5 @@
-import Ciudades from "../models/ciudades";
+import Ciudades from "../models/ciudades.js";
+
 
 class Ciudadservices {
   static async getCiudad() {
@@ -171,3 +172,4 @@ class Ciudadservices {
 }
 
 export default Ciudadservices;
+

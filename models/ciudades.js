@@ -1,9 +1,9 @@
-import conection from "../utils/database";
+import conection from "../utils/database.js";
 
 class Ciudades {
   async getAll() {
     try {
-      const [rows] = await conection.query("SELECT¨*FROM ciudades");
+      const [rows] = await conection.query("SELECT * FROM ciudades");
       return rows;
     } catch (error) {
       throw new Error("error al pedir ciudades");
@@ -20,23 +20,23 @@ class Ciudades {
       }
       return rows[0];
     } catch (error) {
-      throw new Error("Error de categoria ");
+      throw new Error("Error de ciudad ");
     }
   }
 
-  async create(nombre, telefono) {
+  async create(nombre, id) {
     try {
       const [result] = await conection.query(
-        "INSERT INTO ciudades (nombre, telefono) VALUES (?,?)",
-        [nombre, telefono]
+        "INSERT INTO ciudades (nombre, id) VALUES (?,?)",
+        [nombre, id]
       );
       if (result.affectedRows === 0) {
-        return null; // Retorna null si no se pudo crear la categoría
+        return null; // Retorna null si no se pudo crear la ciudad
       }
-      // Retorna la nueva categoría creada
-      return { id: result.insertId, nombre, telefono };
+      // Retorna la nueva ciudad creada
+      return { id: result.insertId, nombre, id };
     } catch (error) {
-      throw new Error("Error al crear la categoría");
+      throw new Error("Error al crear la ciudad");
     }
   }
 
@@ -74,18 +74,17 @@ class Ciudades {
     if (result.affectedRows === 0) {
       return {
         error: true,
-        mensaje:
-          "No se pudo eliminar la categoría, ocurrio un error inesperado.",
+        mensaje: "No se pudo eliminar la ciudad, ocurrio un error inesperado.",
       };
     }
 
     return {
       error: false,
-      mensaje: "Categoría eliminada exitosamente.",
+      mensaje: "ciudad eliminada exitosamente.",
     };
   }
 
-  // Método para listar los productos de una categoría
+  // Método para listar los productos de una ciudad
   async productos(id_ciudad) {
     const [rows] = await conection.query(
       "SELECT * FROM lenguaje WHERE id_ciudad = ?",

@@ -1,4 +1,4 @@
-import conection from "../utils/database";
+import conection from "../utils/database.js";
 
 class lenguaje {
   async getAll() {

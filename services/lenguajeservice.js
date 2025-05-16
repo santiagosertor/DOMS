@@ -31,10 +31,10 @@ class lenguajeservice {
 
   static async getlenguaje(id) {
     try {
-      const ciudadinstance = new lenguajes();
-      const ciudad = await ciudadinstance.getbyid(id);
+      const lenguajeinstance = new lenguajes();
+      const lenguaje = await lenguajeinstance.getbyid(id);
       // Validamos si no hay categorías
-      if (ciudad.length === 0) {
+      if (lenguaje.length === 0) {
         return {
           error: true,
           code: 404,
@@ -61,10 +61,10 @@ class lenguajeservice {
     }
   }
 
-  static async createciudad(nombre, id_ciudad) {
+  static async createlenguaje(nombre, id_lenguaje) {
     try {
       const ciudadinstance = new lenguajes();
-      const ciudad = await ciudadinstance.create(nombre, id_ciudad);
+      const ciudad = await ciudadinstance.create(nombre, id_lenguaje);
       // Validamos si no se pudo crear la categoría
       if (ciudad === null) {
         return {
@@ -102,9 +102,9 @@ class lenguajeservice {
           message: "ciudad no encontrada",
         };
       }
-      const ciudad = await ciudadinstance.update(id, campos);
+      const lenguaje = await lenguajeinstance.update(id, campos);
       // Validamos si no se pudo actualizar la categoría
-      if (ciudad === null) {
+      if (lenguaje === null) {
         return {
           error: true,
           code: 400,
@@ -116,7 +116,7 @@ class lenguajeservice {
         error: false,
         code: 200,
         message: "ciudad actualizada correctamente",
-        data: ciudad,
+        data: lenguaje,
       };
     } catch (error) {
       return {
@@ -127,22 +127,22 @@ class lenguajeservice {
     }
   }
 
-  static async deleteciudad(id) {
+  static async deletelenguaje(id) {
     try {
-      const ciudadinstance = new Ciudades();
+      const ciudadinstance = new lenguajes();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getlenguaje(id);
+      const lenguajeexistente = await lenguajeinstance.getlenguaje(id);
       // Validamos si no existe la categoría
-      if (ciudadexistente.length === 0) {
+      if (lenguajeexistente.length === 0) {
         return {
           error: true,
           code: 404,
           message: "ciudad no encontrada",
         };
       }
-      
+
       // Procedemos a eliminar la ciudad
-      const resultado = await ciudadinstance.delete(id);
+      const resultado = await lenguajeinstance.delete(id);
       // Validamos si no se pudo eliminar la categoría
       if (resultado.error) {
         return {
@@ -155,7 +155,7 @@ class lenguajeservice {
       return {
         error: false,
         code: 200,
-        message: "ciudad eliminada correctamente",
+        message: "lenguaje eliminada correctamente",
         data: ciudadexistente,
       };
     } catch (error) {
@@ -164,7 +164,7 @@ class lenguajeservice {
       return {
         error: true,
         code: 500,
-        message: "Error interno al eliminar la ciudad",
+        message: "Error interno al eliminar la lenguaje",
       };
     }
   }
