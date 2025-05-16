@@ -25,7 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Rutas
 app.use("/api/ciudad", rutaciudad);
-app.use("/api/categorias", categoriasRoutes);
+app.use("/api/lenguaje", categoriasRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", administradorRoutes);
 

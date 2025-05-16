@@ -1,9 +1,9 @@
-import Ciudades from "../models/ciudades";
+import lenguajes from "../models/lenguajes.js";
 
-class Ciudadservices {
+class lenguajeservice {
   static async getCiudad() {
     try {
-      const instanceciudad = new Ciudades();
+      const instanceciudad = new lenguajes();
       const ciudad = await instanceciudad.getAll();
       // Validamos si no hay ciudad
       if (ciudad.length === 0) {
@@ -29,9 +29,9 @@ class Ciudadservices {
     }
   }
 
-  static async getCiudadid(id) {
+  static async getlenguaje(id) {
     try {
-      const ciudadinstance = new Ciudades();
+      const ciudadinstance = new lenguajes();
       const ciudad = await ciudadinstance.getbyid(id);
       // Validamos si no hay categorías
       if (ciudad.length === 0) {
@@ -42,9 +42,9 @@ class Ciudadservices {
         };
       }
       // Consultamos los productos asociados a la categoría
-      const id_ciudad = await ciudadinstance.id_ciudad(id);
+      const id_lenguaje = await lenguajeinstance.id_lenguaje(id);
       // Agregamos la propiedad productos al objeto categoría
-      ciudad.id_ciudad = id_ciudad;
+      ciudad.id_lenguaje = id_lenguaje;
       // Retornamos la categoría obtenida
       return {
         error: false,
@@ -63,7 +63,7 @@ class Ciudadservices {
 
   static async createciudad(nombre, id_ciudad) {
     try {
-      const ciudadinstance = new Ciudades();
+      const ciudadinstance = new lenguajes();
       const ciudad = await ciudadinstance.create(nombre, id_ciudad);
       // Validamos si no se pudo crear la categoría
       if (ciudad === null) {
@@ -89,11 +89,11 @@ class Ciudadservices {
     }
   }
 
-  static async updateciudad(id, campos) {
+  static async updatelenguaje(id, campos) {
     try {
-      const ciudadinstance = new Ciudades();
+      const ciudadinstance = new lenguajes();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const ciudadexistente = await ciudadinstance.getlenguaje(id);
       // Validamos si no existe la categoría
       if (ciudadexistente.length === 0) {
         return {
@@ -131,7 +131,7 @@ class Ciudadservices {
     try {
       const ciudadinstance = new Ciudades();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const ciudadexistente = await ciudadinstance.getlenguaje(id);
       // Validamos si no existe la categoría
       if (ciudadexistente.length === 0) {
         return {
@@ -170,4 +170,4 @@ class Ciudadservices {
   }
 }
 
-export default Ciudadservices;
+export default lenguajeservice;
