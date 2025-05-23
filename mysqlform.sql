@@ -46,8 +46,8 @@ create table lenguaje_usuario (
     foreign key (id_lenguaje) references lenguajes(id)
 );
 
-insert into ciudades(nombre)
-values ('Giron'), ('Bucaramanga'), ('Floridablanca'),('Piedecuesta');
+insert into ciudades(nombre,id)
+values ("1",'Giron'), ("2",'Bucaramanga'), ("3",'Floridablanca'),("4",'Piedecuesta');
 insert into lenguajes(nombre) 
 values ('HTML'), ('CSS'), ('JavaScript'), ('PHP'), ('Java'), ('C#'), ('SQL'), ('Phyton');
 insert into generos(nombre)

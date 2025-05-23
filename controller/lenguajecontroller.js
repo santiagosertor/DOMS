@@ -1,21 +1,12 @@
-<<<<<<< HEAD
-import Ciudadservices from "../services/servicesciudad.js";
-=======
-import servicesciudad from "../services/servicesciudad.js";
->>>>>>> 598807af6dc822aad5b9f9c007ae442dbf92e0cf
-import { ResponseProvider } from "../providers/ResponseProvider.js";
+import lenguajeservice from "../services/lenguajeservice.js";
+import { ResponseProvider } from "../providers/ResponseProvider";
 
-class ciudadController {
+class lenguajeController {
   static getAllciduad = async (req, res) => {
     try {
-      // Llamamos al servicio para obtener las ciudades
-<<<<<<< HEAD
-      const response = await Ciudadservices.getCiudad();
-      // Validamos si no hay ciudades
-=======
-      const response = await servicesciudad.getCiudad();
-      // Validamos si no hay ciudad
->>>>>>> 598807af6dc822aad5b9f9c007ae442dbf92e0cf
+      // Llamamos al servicio para obtener las categorías
+      const response = await lenguajeservice.getlenguaje();
+      // Validamos si no hay categorías
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -35,15 +26,11 @@ class ciudadController {
   };
 
   // Obtener una categoría por su ID
-  static getciudadid = async (req, res) => {
-    const id = req.params.id;
+  static getlenguaje = async (req, res) => {
+    const { id } = req.params;
     try {
-<<<<<<< HEAD
-      const response = await Ciudadservices.getCiudadid(id);
-=======
       // Llamamos al servicio para obtener la categoría por su ID
-      const response = await servicesciudad.getCiudadid(id);
->>>>>>> 598807af6dc822aad5b9f9c007ae442dbf92e0cf
+      const response = await lenguajeservice.getlenguaje(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -57,8 +44,8 @@ class ciudadController {
         );
       }
     } catch (error) {
-      console.error("Error en getciudadid:", error);
-      ResponseProvider.error(res, "Error interno en el servidor", 500);
+      // Llamamos el provider para centralizar los mensajes de respuesta
+      ResponseProvider.error(res, "Error al interno en el servidor", 500);
     }
   };
 
@@ -66,7 +53,7 @@ class ciudadController {
   static createciudad = async (req, res) => {
     const { nombre, id } = req.body;
     try {
-      const response = await servicesciudad.createciudad(nombre, id);
+      const response = await lenguajeservice.createciudad(nombre, id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -87,12 +74,12 @@ class ciudadController {
 
   // Actualizar una categoría
   static updateciudad = async (req, res) => {
-    const { nombre } = req.params;
+    const { id } = req.params;
     // Los campos a actualizar se pasan en el cuerpo de la solicitud
     const campos = req.body;
     try {
       // Crear una instancia de la clase Categoria
-      const ciudad = await servicesciudad.updateciudad(nombre, campos);
+      const ciudad = await lenguajeservice.updateciudad(id, campos);
       // Validamos si no se pudo actualizar la categoría
       if (ciudad.error) {
         ResponseProvider.error(res, ciudad.message, ciudad.code);
@@ -110,7 +97,7 @@ class ciudadController {
     const { id } = req.params;
     try {
       // Llamamos al servicio para eliminar la categoría
-      const response = await servicesciudad.deleteciudad(id);
+      const response = await lenguajeservice.deleteciudad(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         ResponseProvider.error(res, response.message, response.code);
@@ -129,4 +116,4 @@ class ciudadController {
     }
   };
 }
-export default ciudadController;
+export default lenguajeController;

@@ -9,6 +9,10 @@ const usuario = document.querySelector("[name=usuario]");
 const contrasena = document.querySelector("[name=contrasena]");
 const politicas = document.querySelector("[name=politicas]");
 const boton = document.querySelector("#btn_validar");
+<<<<<<< HEAD:FORM/app.js
+=======
+const usuarios = document.querySelector("#usuarios");
+>>>>>>> 598807af6dc822aad5b9f9c007ae442dbf92e0cf:FORM/apps.js
 
 //Funciones
 const validar = (event) => {
@@ -278,4 +282,4 @@ formulario.addEventListener("submit", isValid);
 // telefono.addEventListener("blur", limpiar);
 // documento.addEventListener("blur", limpiar);
 // usuario.addEventListener("blur", limpiar);
-// contrasena.addEventListener("blur", limpiar);
+// contrasena.addEventListener("blur", limpiar)

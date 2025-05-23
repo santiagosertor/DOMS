@@ -18,7 +18,7 @@ class Ciudades {
       }
       return rows[0];
     } catch (error) {
-      throw new Error("Error de categoria ");
+      throw new Error("Error de ciudad ");
     }
   }
 
@@ -82,7 +82,7 @@ class Ciudades {
     };
   }
 
-  // Método para listar los productos de una categoría
+  // Método para listar los productos de una ciudad
   async productos(id_ciudad) {
     const [rows] = await conection.query(
       "SELECT * FROM lenguaje WHERE id_ciudad = ?",
