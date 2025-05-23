@@ -1,4 +1,4 @@
-import { esValido } from "./modulos.js";
+import { esValido } from "./modulo.js";
 //Variables
 const formulario = document.querySelector("form");
 const nombre = document.querySelector("[name=nombre]");
@@ -9,8 +9,6 @@ const usuario = document.querySelector("[name=usuario]");
 const contrasena = document.querySelector("[name=contrasena]");
 const politicas = document.querySelector("[name=politicas]");
 const boton = document.querySelector("#btn_validar");
-
-const usuarios = document.querySelector("#usuarios");
 
 //Funciones
 const validar = (event) => {
@@ -95,6 +93,177 @@ const isValid = (e) => {
   let data = esValido(e);
   console.log(data);
 };
+
+//Tabla
+const usuarios = async () => {
+  const request = await fetch("https://jsonplaceholder.typicode.com/users");
+  const usuarios = await request.json();
+  return usuarios;
+};
+
+const ciudades = async () => {
+  const request = await fetch("http://localhost:3000/api/ciudades");
+  const ciudades = await request.json();
+  return ciudades;
+};
+
+const lenguajes = async () => {
+  const request = await fetch("http://localhost:3000/api/lenguajes");
+  const lenguajes = await request.json();
+  return lenguajes;
+};
+
+const generos = async () => {
+  const request = await fetch("https://jsonplaceholder.typicode.com/users");
+  const generos = await request.json();
+  return generos;
+};
+
+const tabla = (usuarios, ciudades, lenguajes, generos) => {
+  const root = document.querySelector("#app");
+  const tabla = document.createElement("table");
+  const header = document.createElement("thead");
+
+  // Crear encabezados
+  const thId = document.createElement("th");
+  const thNombre = document.createElement("th");
+  const thApellido = document.createElement("th");
+  const thDocumento = document.createElement("th");
+  const thTelefono = document.createElement("th");
+  const thUsuario = document.createElement("th");
+  const thContrasena = document.createElement("th");
+  const thCiudad = document.createElement("th");
+  const thLenguaje = document.createElement("th");
+  const thGenero = document.createElement("th");
+  const thAcciones = document.createElement("th");
+
+  const tbody = document.createElement("tbody");
+  const fragmento = document.createDocumentFragment();
+
+  usuarios.forEach(
+    ({
+      id,
+      nombre,
+      apellido,
+      documento,
+      telefono,
+      name,
+      contrasena,
+      ciudad,
+      lenguaje,
+      genero,
+    }) => {
+      const tr = document.createElement("tr");
+
+      // Crear celdas
+      const tdId = document.createElement("td");
+      const tdNombre = document.createElement("td");
+      const tdApellido = document.createElement("td");
+      const tdDocumento = document.createElement("td");
+      const tdTelefono = document.createElement("td");
+      const tdUsuario = document.createElement("td");
+      const tdContrasena = document.createElement("td");
+      const tdCiudad = document.createElement("td");
+      const tdLenguaje = document.createElement("td");
+      const tdGenero = document.createElement("td");
+      const tdAcciones = document.createElement("td");
+
+      // Botones
+      const btnEditar = document.createElement("button");
+      const btnEliminar = document.createElement("button");
+
+      // Asignar valores
+      tr.setAttribute("id", `post_${id}`);
+      btnEditar.setAttribute("data-id", id);
+      btnEliminar.setAttribute("data-id", id);
+      btnEditar.textContent = "Editar";
+      btnEliminar.textContent = "Eliminar";
+      btnEditar.classList.add("editar");
+      btnEliminar.classList.add("eliminar");
+
+      tdId.textContent = id;
+      tdNombre.textContent = nombre;
+      tdApellido.textContent = apellido;
+      tdDocumento.textContent = documento;
+      tdTelefono.textContent = telefono;
+      tdUsuario.textContent = name;
+      tdContrasena.textContent = contrasena;
+      tdCiudad.textContent = ciudad;
+      tdLenguaje.textContent = lenguaje;
+      tdGenero.textContent = genero;
+      tdAcciones.append(btnEditar, btnEliminar);
+
+      // Agregar celdas a la fila en el orden deseado
+      tr.append(
+        tdId,
+        tdNombre,
+        tdApellido,
+        tdDocumento,
+        tdTelefono,
+        tdUsuario,
+        tdContrasena,
+        tdCiudad,
+        tdLenguaje,
+        tdGenero,
+        tdAcciones
+      );
+      fragmento.append(tr);
+    }
+  );
+
+  tbody.append(fragmento);
+
+  // Encabezados en el orden deseado
+  thId.textContent = "ID";
+  thNombre.textContent = "Nombre";
+  thApellido.textContent = "Apellido";
+  thDocumento.textContent = "Documento";
+  thTelefono.textContent = "Teléfono";
+  thUsuario.textContent = "Usuario";
+  thContrasena.textContent = "Contraseña";
+  thCiudad.textContent = "Ciudad";
+  thLenguaje.textContent = "Lenguajes";
+  thGenero.textContent = "Género";
+  thAcciones.textContent = "Acciones";
+
+  // Agregar encabezados a la tabla
+  header.append(
+    thId,
+    thNombre,
+    thApellido,
+    thDocumento,
+    thTelefono,
+    thUsuario,
+    thContrasena,
+    thCiudad,
+    thLenguaje,
+    thGenero,
+    thAcciones
+  );
+  tabla.append(header, tbody);
+  root.append(tabla);
+};
+
+const data = Promise.all([usuarios(), ciudades(), lenguajes(), generos()]).then(
+  ([usuarios, ciudades, lenguajes, generos]) => {
+    tabla(usuarios, ciudades, lenguajes, generos);
+  }
+);
+
+// Manejo de botones
+window.addEventListener("click", (e) => {
+  if (e.target.matches(".editar")) {
+    let id = e.target.dataset.id;
+    alert(`Editar usuario con ID: ${id}`);
+  }
+  if (e.target.matches(".eliminar")) {
+    let id = e.target.dataset.id;
+    let tr = document.querySelector(`#post_${id}`);
+    tr.remove();
+    console.log(`Usuario con ID ${id} eliminado`);
+  }
+});
+
 //Eventos
 addEventListener("DOMContentLoaded", acepta);
 politicas.addEventListener("change", acepta);

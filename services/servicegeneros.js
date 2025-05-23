@@ -1,12 +1,12 @@
-import Ciudades from "../models/ciudades.js";
+import genero from "../models/generos.js";
 
-class Ciudadservices {
-  static async getCiudad() {
+class generosservice {
+  static async getgenero() {
     try {
-      const instanceciudad = new Ciudades();
-      const ciudad = await instanceciudad.getAll();
+      const instancegenero = new genero();
+      const generos = await instancegenero.getAll();
       // Validamos si no hay ciudad
-      if (ciudad.length === 0) {
+      if (generos.length === 0) {
         return {
           error: true,
           code: 404,
@@ -18,7 +18,7 @@ class Ciudadservices {
         error: false,
         code: 200,
         message: "ciudad obtenidas correctamente",
-        data: ciudad,
+        data: generos,
       };
     } catch (error) {
       return {
@@ -29,12 +29,12 @@ class Ciudadservices {
     }
   }
 
-  static async getCiudadid(id) {
+  static async getgeneroid(id) {
     try {
-      const ciudadinstance = new Ciudades();
-      const ciudad = await ciudadinstance.getbyid(id);
+      const generoinstance = new genero();
+      const generos = await generoinstance.getbyid(id);
       // Validamos si no hay ciudades
-      if (ciudad.length === 0) {
+      if (generos.length === 0) {
         return {
           error: true,
           code: 404,
@@ -42,15 +42,15 @@ class Ciudadservices {
         };
       }
       // Consultamos los productos asociados a la categoría
-      const id = await ciudadinstance.id(id);
+      const id = await generoinstance.id(id);
       // Agregamos la propiedad productos al objeto categoría
-      ciudad.id = id;
+      generos.id = id;
       // Retornamos la categoría obtenida
       return {
         error: false,
         code: 200,
         message: "ciudad obtenida correctamente",
-        data: ciudad,
+        data: generos,
       };
     } catch (error) {
       return {
@@ -61,12 +61,12 @@ class Ciudadservices {
     }
   }
 
-  static async createciudad(nombre, id) {
+  static async creategenero(nombre, id) {
     try {
-      const ciudadinstance = new Ciudades();
-      const ciudad = await ciudadinstance.create(nombre, id);
+      const generoinstance = new genero();
+      const generos = await generoinstance.create(nombre, id);
       // Validamos si no se pudo crear la ciudad
-      if (ciudad === null) {
+      if (generos === null) {
         return {
           error: true,
           code: 400,
@@ -78,7 +78,7 @@ class Ciudadservices {
         error: false,
         code: 201,
         message: "ciudad creada correctamente",
-        data: categoria,
+        data: generos,
       };
     } catch (error) {
       return {
@@ -89,22 +89,22 @@ class Ciudadservices {
     }
   }
 
-  static async updateciudad(id, campos) {
+  static async updategenero(id, campos) {
     try {
-      const ciudadinstance = new Ciudades();
+      const generoinstance = new genero();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const generosexistente = await generoinstance.getCiudadid(id);
       // Validamos si no existe la categoría
-      if (ciudadexistente.length === 0) {
+      if (generosexistente.length === 0) {
         return {
           error: true,
           code: 404,
           message: "ciudad no encontrada",
         };
       }
-      const ciudad = await ciudadinstance.update(id, campos);
+      const generos = await generosinstance.update(id, campos);
       // Validamos si no se pudo actualizar la categoría
-      if (ciudad === null) {
+      if (generos === null) {
         return {
           error: true,
           code: 400,
@@ -116,7 +116,7 @@ class Ciudadservices {
         error: false,
         code: 200,
         message: "ciudad actualizada correctamente",
-        data: ciudad,
+        data: generos,
       };
     } catch (error) {
       return {
@@ -127,13 +127,13 @@ class Ciudadservices {
     }
   }
 
-  static async deleteciudad(id) {
+  static async deletegenero(id) {
     try {
-      const ciudadinstance = new Ciudades();
+      const generosinstance = new genero();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const generosexistente = await generosinstance.getCiudadid(id);
       // Validamos si no existe la categoría
-      if (ciudadexistente.length === 0) {
+      if (generosexistente.length === 0) {
         return {
           error: true,
           code: 404,
@@ -142,7 +142,7 @@ class Ciudadservices {
       }
 
       // Procedemos a eliminar la ciudad
-      const resultado = await ciudadinstance.delete(id);
+      const resultado = await generosinstance.delete(id);
       // Validamos si no se pudo eliminar la categoría
       if (resultado.error) {
         return {
@@ -156,7 +156,7 @@ class Ciudadservices {
         error: false,
         code: 200,
         message: "ciudad eliminada correctamente",
-        data: ciudadexistente,
+        data: generosexistente,
       };
     } catch (error) {
       console.log(error);
@@ -170,4 +170,4 @@ class Ciudadservices {
   }
 }
 
-export default Ciudadservices;
+export default generosservice;

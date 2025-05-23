@@ -21,13 +21,18 @@ export const esValido = (e) => {
   if (campo_checkbox.length < 3) {
     obj[checkbox[0].name] = "";
   } else {
-    obj[checkbox[0].name] = [...campo_checkbox].map(e => e.value);
+    obj[checkbox[0].name] = [...campo_checkbox].map((e) => e.value);
   }
 
   campos.forEach((campo) => {
-    switch (campo.tagName){
+    switch (campo.tagName) {
       case "INPUT":
-        if (campo.type == "text" || campo.type == "number" || campo.type == "password" || campo.type == "tel") {
+        if (
+          campo.type == "text" ||
+          campo.type == "number" ||
+          campo.type == "password" ||
+          campo.type == "tel"
+        ) {
           obj[campo.name] = campo.value;
           if (campo.value.trim() === "") {
             campo.classList.add("error");
@@ -45,8 +50,3 @@ export const esValido = (e) => {
   });
   return obj;
 };
-//usuario
-//ciudades
-//generos
-//lenguajes
-//todo unido(usuario y lenguajes)

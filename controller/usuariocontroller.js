@@ -1,10 +1,14 @@
 import { ResponseProvider } from "../providers/ResponseProvider.js";
-import usuarioservice from "../services/serviceusuario.js";
+import serviceusuario from "../services/seviceusuario.js";
 
 export const register = async (req, res) => {
   const { nombre, docuemnto, contrasena } = req.body;
   try {
-    const response = await AuthService.register(nombre, docuemnto, contrasena);
+    const response = await serviceusuario.register(
+      nombre,
+      docuemnto,
+      contrasena
+    );
     if (response.error) {
       // Llamamos el provider para centralizar los mensajes de respuesta
       ResponseProvider.success(res, {}, response.message, response.code);
@@ -21,7 +25,7 @@ export const register = async (req, res) => {
 export const login = async (req, res) => {
   const { docuemnto, contrasena } = req.body;
   try {
-    const response = await usuarioservice.login(docuemnto, contrasena);
+    const response = await serviceusuario.login(docuemnto, contrasena);
     if (response.error) {
       console.log(response);
 
@@ -45,7 +49,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
   try {
     // Llamamos el servio y pasamos el id del usuario
-    const response = await AuthService.logout(req.user.id);
+    const response = await serviceusuario.logout(req.user.id);
     // Llamamos el provider para centralizar los mensajes de respuesta
     ResponseProvider.success(res, {}, response.message, response.code);
     return res.status(response.code).json(response);
@@ -60,7 +64,7 @@ export const refreshToken = async (req, res) => {
   try {
     const refreshToken = usuarioheader.split(" ")[1];
     // Verificamos el token de accesso
-    const response = await usuarioservice.verifyAccessToken(refreshToken);
+    const response = await serviceusuario.verifyAccessToken(refreshToken);
     // Llamamos el provider para centralizar los mensajes de respuesta
     ResponseProvider.success(
       res,

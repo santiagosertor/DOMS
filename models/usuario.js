@@ -1,27 +1,36 @@
-import database from "../utils/database.js"
+// models/Usuario.js
+import conection from "../utils/database.js";
 
 export class Usuario {
-
-  static async finddocumento(documento) {
-    const [rows] = await database.query("SELECT * FROM usuarios WHERE documento = ?", [
-      documento,
-    ]);
+  static async findByid(id) {
+    const [rows] = await conection.query(
+      "SELECT * FROM usuarios WHERE email = ?",
+      [id]
+    );
     return rows[0];
   }
 
-  static async create(nombre, documento, contrasena) {
-    console.log(nombre, documento, contrasena);
-    const [result] = await database.query(
-      "INSERT INTO usuarios (nombre, documento, contrasena) VALUES (?, ?, ?)",
-      [nombre, documento, contrasena]
+  static async create(
+    id,
+    nombre,
+    apellido,
+    documento,
+    telefono,
+    usuario,
+    contrasena
+  ) {
+    console.log(id, nombre, apellido, documento, telefono, usuario, contrasena);
+    const [result] = await conection.query(
+      "INSERT INTO usuarios (id, nombre, apellido, documento,telefono,usuario, contrasena) VALUES (?, ?, ?)",
+      [id, nombre, apellido, documento, telefono, usuario, contrasena]
     );
     return result.insertId;
   }
 
   static async updateRefreshToken(id, refreshToken) {
-    await database.query("UPDATE usuarios SET refresh_token = ? WHERE id = ?", [
-      refreshToken,
-      id,
-    ]);
+    await conection.query(
+      "UPDATE usuarios SET refresh_token = ? WHERE id = ?",
+      [refreshToken, id]
+    );
   }
 }

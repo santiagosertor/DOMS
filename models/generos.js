@@ -1,9 +1,9 @@
 import conection from "../utils/database.js";
 
-class Ciudades {
+class genero {
   async getAll() {
     try {
-      const [rows] = await conection.query("SELECT * FROM ciudades");
+      const [rows] = await conection.query("SELECT * FROM generos");
       return rows;
     } catch (error) {
       throw new Error("error al pedir ciudades");
@@ -12,35 +12,37 @@ class Ciudades {
 
   async getbyid(id) {
     try {
-      const [rows] = await conection.query("SELECT FROM ciudades where id=?", [id]);
+      const [rows] = await conection.query("SELECT FROM generos where id=?", [
+        id,
+      ]);
       if (rows.length === 0) {
         return [];
       }
       return rows[0];
     } catch (error) {
-      throw new Error("Error de categoria ");
+      throw new Error("Error de generos ");
     }
   }
 
   async create(nombre, id) {
     try {
       const [result] = await conection.query(
-        "INSERT INTO ciudades (nombre, id) VALUES (?,?)",
+        "INSERT INTO generos (nombre, id) VALUES (?,?)",
         [nombre, id]
       );
       if (result.affectedRows === 0) {
-        return null; // Retorna null si no se pudo crear la ciudad
+        return null; // Retorna null si no se pudo crear la generos
       }
-      // Retorna la nueva ciudad creada
+      // Retorna la nueva generos creada
       return { id: result.insertId, nombre, id };
     } catch (error) {
-      throw new Error("Error al crear la ciudad");
+      throw new Error("Error al crear la generos");
     }
   }
 
   async update(id, campos) {
     try {
-      let query = "UPDATE ciudades SET ";
+      let query = "UPDATE generos SET ";
       let params = [];
 
       // Construimos dinámicamente la consulta de actualización solo con los campos proporcionados
@@ -58,38 +60,38 @@ class Ciudades {
       const [result] = await conection.query(query, params);
       return result.affectedRows > 0 ? { id, ...campos } : null;
     } catch (error) {
-      throw new Error("Error al actualizar la categoría");
+      throw new Error("Error al actualizar la generos");
     }
   }
 
-  async delete(id_ciudad) {
+  async delete(id_generos) {
     // Procedemos con la eliminación si no está relacionada
-    const [result] = await conection.query(
-      "DELETE FROM ciudades WHERE id = ?",
-      [id_ciudad]
-    );
+    const [result] = await conection.query("DELETE FROM generos WHERE id = ?", [
+      id_generos,
+    ]);
 
     if (result.affectedRows === 0) {
       return {
         error: true,
-        mensaje: "No se pudo eliminar la ciudad, ocurrio un error inesperado.",
+        mensaje:
+          "No se pudo eliminar la lenguajes, ocurrio un error inesperado.",
       };
     }
 
     return {
       error: false,
-      mensaje: "ciudad eliminada exitosamente.",
+      mensaje: "generos eliminada exitosamente.",
     };
   }
 
   // Método para listar los productos de una categoría
-  async productos(id_ciudad) {
+  async productos(id_generos) {
     const [rows] = await conection.query(
-      "SELECT * FROM lenguaje WHERE id_ciudad = ?",
-      [id_ciudad]
+      "SELECT * FROM generos WHERE id_generos = ?",
+      [id_generos]
     );
     return rows;
   }
 }
 
-export default Ciudades;
+export default genero;

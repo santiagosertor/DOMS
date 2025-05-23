@@ -1,12 +1,12 @@
-import Ciudades from "../models/ciudades.js";
+import lenguaje from "../models/lenguajes.js";
 
-class Ciudadservices {
-  static async getCiudad() {
+class lenguajeservice {
+  static async getlenguaje() {
     try {
-      const instanceciudad = new Ciudades();
-      const ciudad = await instanceciudad.getAll();
+      const instancelenguaje = new lenguaje();
+      const lenguajes = await instancelenguaje.getAll();
       // Validamos si no hay ciudad
-      if (ciudad.length === 0) {
+      if (lenguajes.length === 0) {
         return {
           error: true,
           code: 404,
@@ -17,123 +17,123 @@ class Ciudadservices {
       return {
         error: false,
         code: 200,
-        message: "ciudad obtenidas correctamente",
-        data: ciudad,
+        message: "lenguajes obtenidas correctamente",
+        data: lenguajes,
       };
     } catch (error) {
       return {
         error: true,
         code: 500,
-        message: "Error al obtener las ciudad",
+        message: "Error al obtener las lenguaje",
       };
     }
   }
 
-  static async getCiudadid(id) {
+  static async getLenguajeid(id) {
     try {
-      const ciudadinstance = new Ciudades();
-      const ciudad = await ciudadinstance.getbyid(id);
+      const lenguajeinstance = new lenguaje();
+      const lenguajes = await lenguajeinstance.getbyid(id);
       // Validamos si no hay ciudades
-      if (ciudad.length === 0) {
+      if (lenguajes.length === 0) {
         return {
           error: true,
           code: 404,
-          message: "ciudad no encontrada",
+          message: "lenguajes no encontrada",
         };
       }
       // Consultamos los productos asociados a la categoría
-      const id = await ciudadinstance.id(id);
+      const id = await lenguajeinstance.id(id);
       // Agregamos la propiedad productos al objeto categoría
-      ciudad.id = id;
+      lenguajes.id = id;
       // Retornamos la categoría obtenida
       return {
         error: false,
         code: 200,
-        message: "ciudad obtenida correctamente",
-        data: ciudad,
+        message: "lenguajes obtenida correctamente",
+        data: lenguajes,
       };
     } catch (error) {
       return {
         error: true,
         code: 500,
-        message: "Error al obtener la ciudad",
+        message: "Error al obtener la lenguaje",
       };
     }
   }
 
-  static async createciudad(nombre, id) {
+  static async createlenguaje(nombre, id) {
     try {
-      const ciudadinstance = new Ciudades();
-      const ciudad = await ciudadinstance.create(nombre, id);
+      const lenguajeinstance = new lenguaje();
+      const lenguajes = await lenguajeinstance.create(nombre, id);
       // Validamos si no se pudo crear la ciudad
-      if (ciudad === null) {
+      if (lenguajes === null) {
         return {
           error: true,
           code: 400,
-          message: "Error al crear la ciudad",
+          message: "Error al crear la lenguajes",
         };
       }
       // Retornamos la nueva ciudad creada
       return {
         error: false,
         code: 201,
-        message: "ciudad creada correctamente",
-        data: categoria,
+        message: "lenguajes creada correctamente",
+        data: lenguajes,
       };
     } catch (error) {
       return {
         error: true,
         code: 500,
-        message: "Error interno al crear la ciudad",
+        message: "Error interno al crear la lenguajes",
       };
     }
   }
 
-  static async updateciudad(id, campos) {
+  static async updatelenguaje(id, campos) {
     try {
-      const ciudadinstance = new Ciudades();
+      const lenguajesinstance = new lenguaje();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const lenguajesexistente = await lenguajesinstance.getCiudadid(id);
       // Validamos si no existe la categoría
-      if (ciudadexistente.length === 0) {
+      if (lenguajesexistente.length === 0) {
         return {
           error: true,
           code: 404,
-          message: "ciudad no encontrada",
+          message: "lenguajes no encontrada",
         };
       }
-      const ciudad = await ciudadinstance.update(id, campos);
+      const lenguajes = await lenguajesinstance.update(id, campos);
       // Validamos si no se pudo actualizar la categoría
-      if (ciudad === null) {
+      if (lenguajes === null) {
         return {
           error: true,
           code: 400,
-          message: "Error al actualizar la ciudad",
+          message: "Error al actualizar la lenguajes",
         };
       }
       // Retornamos la categoría actualizada
       return {
         error: false,
         code: 200,
-        message: "ciudad actualizada correctamente",
-        data: ciudad,
+        message: "lenguajes actualizada correctamente",
+        data: lenguajes,
       };
     } catch (error) {
       return {
         error: true,
         code: 500,
-        message: "Error interno al actualizar la ciudad",
+        message: "Error interno al actualizar la lenguajes",
       };
     }
   }
 
-  static async deleteciudad(id) {
+  static async deletelenguaje(id) {
     try {
-      const ciudadinstance = new Ciudades();
+      const lenguajeinstance = new lenguaje();
       // Consultamos la categoría por id
-      const ciudadexistente = await ciudadinstance.getCiudadid(id);
+      const lenguajeexistente = await lenguajeinstance.getCiudadid(id);
       // Validamos si no existe la categoría
-      if (ciudadexistente.length === 0) {
+      if (lenguajeexistente.length === 0) {
         return {
           error: true,
           code: 404,
@@ -142,7 +142,7 @@ class Ciudadservices {
       }
 
       // Procedemos a eliminar la ciudad
-      const resultado = await ciudadinstance.delete(id);
+      const resultado = await lenguajeinstance.delete(id);
       // Validamos si no se pudo eliminar la categoría
       if (resultado.error) {
         return {
@@ -156,7 +156,7 @@ class Ciudadservices {
         error: false,
         code: 200,
         message: "ciudad eliminada correctamente",
-        data: ciudadexistente,
+        data: lenguajeexistente,
       };
     } catch (error) {
       console.log(error);
@@ -170,4 +170,4 @@ class Ciudadservices {
   }
 }
 
-export default Ciudadservices;
+export default lenguajeservice;

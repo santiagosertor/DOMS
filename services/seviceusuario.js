@@ -10,18 +10,33 @@ const refreshSecretKey = process.env.REFRESH_TOKEN_SECRET;
 const tokenExpiration = process.env.TOKEN_EXPIRATION;
 const refreshExpiration = process.env.REFRESH_EXPIRATION;
 
-class usuarioservice {
+class serviceusuario {
   /**
    *
    * @param {*} nombre
+   * @param {*} email
+   * @param {*} password
+   * @param {*} id
+   * @param {*} nombre
+   * @param {*} apellido
    * @param {*} documento
+   * @param {*} telefono
+   * @param {*} usuario
    * @param {*} contrasena
    * @returns
    */
-  static async register(nombre, documento, contrasena) {
+  static async register(
+    id,
+    nombre,
+    apellido,
+    documento,
+    telefono,
+    usuario,
+    contrasena
+  ) {
     try {
       // Verificar si el usuario ya existe
-      const userExists = await Usuario.finddocumento(documento);
+      const userExists = await Usuario.findBydocumento(documento);
       // Validamos si el correo ya esta registrado en la base de datos
       if (userExists)
         return {
@@ -30,9 +45,9 @@ class usuarioservice {
           message: "El corre ya se encuentra registrado en el sistema",
         };
       // Hashear la contraseña || encriptar la contraseña
-      const contrasena = await bcrypt.hash(contrasena, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
       // Registramos el usuario en la base de datos
-      const userId = await Usuario.create(nombre, documento, contrasena);
+      const userid = await Usuario.create(nombre, documento, hashedPassword);
       // Retornamos la respuesta
       return { error: false, code: 201, message: "Usuario creado" };
     } catch (error) {
@@ -48,7 +63,7 @@ class usuarioservice {
   static async login(documento, contrasena) {
     try {
       // Consultamos el usuario por el email
-      const user = await Usuario.finddocumento(documento);
+      const user = await Usuario.findBydocumento(documento);
       // Validamos si el usuario esta registrado en la base de datos
       if (!user)
         return {
@@ -57,9 +72,12 @@ class usuarioservice {
           message: "El correo o la contraseña proporcionados no son correctos.",
         };
       // Comparmamos la contraseña del usuarios registrado con la ingresada basado en la llave de encriptación
-      const validPassword = await bcrypt.compare(contrasena, user.contrasena);
+      const validarcontrasena = await bcrypt.compare(
+        contrasena,
+        user.contrasena
+      );
       // Validamos si la contraseña es la misma
-      if (!validPassword)
+      if (!validarcontrasena)
         return {
           error: true,
           code: 401,
@@ -96,7 +114,7 @@ class usuarioservice {
     return jwt.sign(
       {
         id: user.id,
-        email: user.email,
+        documento: user.documento,
         // Podemos pasar más datos
       },
       secretKey,
@@ -113,7 +131,7 @@ class usuarioservice {
     return jwt.sign(
       {
         id: user.id,
-        documento: user.documento,
+        email: user.email,
         // Podemos pasar más datos
       },
       refreshSecretKey,
@@ -196,4 +214,4 @@ class usuarioservice {
   }
 }
 
-export default usuarioservice;
+export default serviceusuario;

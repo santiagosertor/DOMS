@@ -5,9 +5,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import rutaciudad from "./rutas/rutaciudad.js";
-import categoriasRoutes from "./src/routes/categoriasRoutes.js";
-import authRoutes from "./src/routes/authRoutes.js";
-import administradorRoutes from "./src/routes/administradorRoutes.js";
+import rutalenguajea from "./rutas/rutalenguaje.js";
+import rutasusuario from "./rutas/rutasusuario.js";
+import rutasgeneros from "./rutas/rutasgenero.js";
 
 dotenv.config();
 
@@ -24,10 +24,10 @@ app.use(express.urlencoded({ extended: true }));
 // Permite manejar cookies en las respuestas.
 app.use(cookieParser());
 // Rutas
-app.use("/api/ciudad", rutaciudad);
-app.use("/api/categorias", categoriasRoutes);
-app.use("/api/auth", authRoutes);
-app.use("/api/admin", administradorRoutes);
+app.use("/api/ciudades", rutaciudad);
+app.use("/api/lenguajes", rutalenguajea);
+app.use("/api/usuarios", rutasusuario);
+app.use("/api/generos", rutasgeneros);
 
 // Puerto para ejecutar el servidor
 const port = process.env.PORT || 3000;

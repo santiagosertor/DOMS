@@ -1,11 +1,11 @@
-import Ciudadservices from "../services/servicesciudad.js";
+import generosservice from "../services/servicegeneros.js";
 import { ResponseProvider } from "../providers/ResponseProvider.js";
 
-class ciudadController {
-  static getAllciduad = async (req, res) => {
+class generocontroller {
+  static getAllgenero = async (req, res) => {
     try {
       // Llamamos al servicio para obtener las ciudades
-      const response = await Ciudadservices.getCiudad();
+      const response = await generosservice.getgenero();
       // Validamos si no hay ciudades
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
@@ -26,10 +26,10 @@ class ciudadController {
   };
 
   // Obtener una categoría por su ID
-  static getciudadid = async (req, res) => {
+  static getgeneroid = async (req, res) => {
     const id = req.params.id;
     try {
-      const response = await Ciudadservices.getCiudadid(id);
+      const response = await generosservice.getgeneroid(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -49,10 +49,10 @@ class ciudadController {
   };
 
   // Crear una nueva categoría
-  static createciudad = async (req, res) => {
+  static creategenero = async (req, res) => {
     const { nombre, id } = req.body;
     try {
-      const response = await Ciudadservices.createciudad(nombre, id);
+      const response = await generosservice.creategenero(nombre, id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         return ResponseProvider.error(res, response.message, response.code);
@@ -72,19 +72,24 @@ class ciudadController {
   };
 
   // Actualizar una categoría
-  static updateciudad = async (req, res) => {
+  static updategenero = async (req, res) => {
     const { id } = req.params;
     // Los campos a actualizar se pasan en el cuerpo de la solicitud
     const campos = req.body;
     try {
       // Crear una instancia de la clase Categoria
-      const ciudad = await Ciudadservices.updateciudad(id, campos);
+      const generos = await generosservice.updategenero(id, campos);
       // Validamos si no se pudo actualizar la categoría
-      if (ciudad.error) {
-        ResponseProvider.error(res, ciudad.message, ciudad.code);
+      if (generos.error) {
+        ResponseProvider.error(res, generos.message, generos.code);
       }
       // Retornamos la respuesta cuando se actualiza correctamente
-      ResponseProvider.success(res, ciudad.data, ciudad.message, ciudad.code);
+      ResponseProvider.success(
+        res,
+        generos.data,
+        generos.message,
+        generos.code
+      );
     } catch (error) {
       // Llamamos el provider para centralizar los mensajes de respuesta
       ResponseProvider.error(res, "Error al interno en el servidor", 500);
@@ -92,11 +97,11 @@ class ciudadController {
   };
 
   // Eliminar una categoría
-  static deleteciudad = async (req, res) => {
+  static deletegenero = async (req, res) => {
     const { id } = req.params;
     try {
       // Llamamos al servicio para eliminar la categoría
-      const response = await Ciudadservices.deleteciudad(id);
+      const response = await generosservice.deletegenero(id);
       if (response.error) {
         // Llamamos el provider para centralizar los mensajes de respuesta
         ResponseProvider.error(res, response.message, response.code);
@@ -115,4 +120,4 @@ class ciudadController {
     }
   };
 }
-export default ciudadController;
+export default generocontroller;
